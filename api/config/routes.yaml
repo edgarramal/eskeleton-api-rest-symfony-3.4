@@ -4,3 +4,7 @@
 index:
     path: /
     defaults: { _controller: 'App\Controller\UserController::findAll' }
+
+users:
+  path: /users
+  controller: App\Controller\UserController::findAll

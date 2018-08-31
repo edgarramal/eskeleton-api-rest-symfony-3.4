@@ -12,4 +12,12 @@ class UserController
     public function findAll(){
         return new Response("Hello World!");
     }
+
+    /**
+     * @Route('/user/{id}')
+     * @Method({'GET'})
+     */
+    public function find(string $id){
+        return new Response("User {$id}");
+    }
 }
