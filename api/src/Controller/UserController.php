@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController
@@ -16,6 +17,8 @@ class UserController
     /**
      * @Route('/user/{id}')
      * @Method({'GET'})
+     * @param string $id
+     * @return Response
      */
     public function find(string $id){
         return new Response("User {$id}");
