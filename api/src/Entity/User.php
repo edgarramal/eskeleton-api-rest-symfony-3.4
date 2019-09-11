@@ -1,34 +1,56 @@
 <?php
-namespace App\User;
+namespace App\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Serializer;
 
+/**
+ * Class User
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ */
 class User implements UserInterface
 {
     /**
      * @var string
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $surname;
 
-    private $username;
-
-    private $password;
     /**
      * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=255)
      */
     private $phone;
 

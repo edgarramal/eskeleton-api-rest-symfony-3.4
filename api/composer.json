@@ -8,8 +8,10 @@
         "symfony/console": "*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "*",
+        "symfony/maker-bundle": "^1.13",
         "symfony/security": "*",
         "symfony/security-bundle": "*",
+        "symfony/serializer": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {

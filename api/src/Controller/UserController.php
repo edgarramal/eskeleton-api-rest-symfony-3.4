@@ -1,26 +1,45 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Component\Config\Definition\Exception\Exception;
+use App\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
-class UserController
+class UserController extends Controller
 {
-    /**
-     * @Route('/users')
-     * @Method({'GET'})
-     */
-    public function findAll(){
-        return new Response("Hello World!");
+    private $userRepository;
+    private $serializer;
+    public function __construct(UserRepository $userRepository, SerializerInterface $serializer)
+    {
+        $this->userRepository = $userRepository;
+        $this->serializer = $serializer;
     }
 
     /**
-     * @Route('/user/{id}')
-     * @Method({'GET'})
+     * @Route("/users", methods={"GET"})
+     */
+    public function findAll(){
+        return new Response(
+            $this->serializer->serialize($this->userRepository->findAll(), "json"),
+            Response::HTTP_OK,
+            ["content-type" => "json/application"]
+        );
+    }
+
+    /**
+     * @Route("/user/{id}", methods={"GET"})
      * @param string $id
      * @return Response
      */
     public function find(string $id){
-        return new Response("User {$id}");
+        return new Response(
+            $this->serializer->serialize($this->userRepository->find($id), "json"),
+            Response::HTTP_OK,
+            ["content-type" => "json/application"]
+        );
     }
 }

@@ -20,7 +20,7 @@ class ApiKeyUserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username)
     {
-        $user = new \App\User\User();
+        $user = new \App\Entity\User();
         $user->setUsername($username);
         return $user;
     }
