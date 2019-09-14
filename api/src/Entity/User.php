@@ -55,6 +55,12 @@ class User implements UserInterface
     private $phone;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $token;
+
+    /**
      * @return string
      */
     public function getId()
@@ -202,5 +208,13 @@ class User implements UserInterface
     public function setUsername($username)
     {
         $this->username = $username;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken(string $token)
+    {
+        $this->token = $token;
     }
 }

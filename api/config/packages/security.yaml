@@ -1,4 +1,6 @@
 security:
+    encoders:
+        App\Entity\User: bcrypt
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: null }
@@ -6,15 +8,16 @@ security:
               id: App\AppBundle\Security\ApiKeyUserProvider
     firewalls:
         dev:
-            pattern: ^/
+            pattern: /(?!login).*
             security: true
             stateless: true
             simple_preauth:
                 authenticator: App\AppBundle\Security\ApiKeyAuthenticator
             provider: api_key_user_provider
+
         main:
-            anonymous: true
-            pattern: ^/
+            pattern: /(?!login).*
+            security: true
             stateless: true
             simple_preauth:
                 authenticator: App\AppBundle\Security\ApiKeyAuthenticator

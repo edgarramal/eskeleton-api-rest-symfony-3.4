@@ -36,5 +36,6 @@ services:
         factory: 'doctrine.orm.entity_manager:getRepository'
         arguments: ['App\Entity\User']
 
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

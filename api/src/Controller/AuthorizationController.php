@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\User;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class AuthorizationController
+{
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
+    /**
+     * @Route("/login", name="logij", methods={"POST"})
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     */
+    public function login(Request $request){
+        $username = $request->get("username");
+        $password = $request->get("password");
+
+        /** @var User $user */
+        $user = $this->userRepository->findOneBy(["username" => $username, "password" => $password]);
+
+        if(!empty($user)){
+            $token = bin2hex(random_bytes(78));
+            $user->setToken($token);
+            $this->userRepository->update($user);
+            return new Response($token, Response::HTTP_OK);
+        }else{
+            return new Response("", Response::HTTP_UNAUTHORIZED);
+        }
+
+    }
+}

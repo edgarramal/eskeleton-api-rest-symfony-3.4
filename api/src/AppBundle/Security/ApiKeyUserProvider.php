@@ -2,6 +2,8 @@
 
 namespace App\AppBundle\Security;
 
+use App\Repository\UserRepository;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -9,15 +11,37 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class ApiKeyUserProvider implements UserProviderInterface
 {
-    public function getUsernameForApiKey($apiKey)
-    {
-        // Look up the username based on the token in the database, via
-        // an API call, or do something entirely different
-        $username = "admin";
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
-        return $username;
+    /**
+     * ApiKeyUserProvider constructor.
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
     }
 
+    /**
+     * @param $apiKey
+     * @return string
+     */
+    public function getUsernameForApiKey($apiKey)
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->userRepository->findOneBy(['token' => $apiKey]);
+        if (is_null($user)) {
+            throw new Exception("Incorrect token");
+        }
+        return $user->getUsername();
+    }
+
+    /**
+     * @param string $username
+     * @return \App\Entity\User|UserInterface
+     */
     public function loadUserByUsername($username)
     {
         $user = new \App\Entity\User();
@@ -25,6 +49,10 @@ class ApiKeyUserProvider implements UserProviderInterface
         return $user;
     }
 
+    /**
+     * @param UserInterface $user
+     * @return UserInterface|void
+     */
     public function refreshUser(UserInterface $user)
     {
         // this is used for storing authentication in the session
@@ -34,6 +62,10 @@ class ApiKeyUserProvider implements UserProviderInterface
         throw new UnsupportedUserException();
     }
 
+    /**
+     * @param string $class
+     * @return bool
+     */
     public function supportsClass($class)
     {
         return User::class === $class;

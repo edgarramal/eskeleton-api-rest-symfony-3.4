@@ -2,16 +2,17 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 class UserRepository extends EntityRepository
 {
-    public function findAllOrderedByName()
+    /**
+     * @param User $user
+     */
+    public function update(User $user)
     {
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT u FROM AppBundle:User u ORDER BY u.name ASC'
-            )
-            ->getResult();
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush($user);
     }
 }
