@@ -202,7 +202,7 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        $this->password = null;
     }
 
     public function setUsername($username)

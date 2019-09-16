@@ -1,4 +1,13 @@
 # Base Full API Rest Symfony
+Project base for make a profesional API with Symfony PHP framework. I'm currently working for improve day by day the repository for get a professional base.
+
+Included:
+- Doctrine ORM
+- Authentification Security
+- Swagger API Doc
+- PHPUnit
+
+
 ### Get Started
 ##### 1. Clone the repository:
 `git clone https://github.com/edgarramal/base-full-api-rest-symfony.git`
@@ -20,3 +29,17 @@ api/.env
 
 ##### 5. Run Symfony Server:
 `symfony server:start`
+
+------------
+
+
+### Run tests
+Run tests with PHPUnit
+`php bin/phpunit tests`
+
+------------
+
+
+### Swagger Doc
+path to look it:
+`http://server:port/doc`

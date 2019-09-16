@@ -9,6 +9,7 @@ class UserRepository extends EntityRepository
 {
     /**
      * @param User $user
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function update(User $user)
     {
