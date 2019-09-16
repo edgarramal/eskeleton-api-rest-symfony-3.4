@@ -4,14 +4,15 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Swagger\Annotations as SWG;
+use Nelmio\ApiDocBundle\Annotation\Security;
 
-class AuthorizationController
+
+class AuthorizationController extends Controller
 {
 
     /**
@@ -25,10 +26,29 @@ class AuthorizationController
     }
 
     /**
-     * @Route("/login", name="logij", methods={"POST"})
+     * @Route("/login", name="login", methods={"POST"})
      * @param Request $request
      * @return Response
      * @throws \Exception
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns token for Authorization",
+     * )
+     * @SWG\Parameter(
+     *     name="username",
+     *     in="query",
+     *     type="string",
+     *     description="Username"
+     * )
+     * @SWG\Parameter(
+     *     name="password",
+     *     in="query",
+     *     type="string",
+     *     description="Password"
+     * )
+     * @SWG\Tag(name="Access")
+     * @Security(name="api_key")
      */
     public function login(Request $request){
         $username = $request->get("username");

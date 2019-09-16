@@ -8,7 +8,7 @@ security:
               id: App\AppBundle\Security\ApiKeyUserProvider
     firewalls:
         dev:
-            pattern: /(?!login).*
+            pattern: /(?!login|doc).*
             security: true
             stateless: true
             simple_preauth:
@@ -16,7 +16,7 @@ security:
             provider: api_key_user_provider
 
         main:
-            pattern: /(?!login).*
+            pattern: /(?!login|doc).*
             security: true
             stateless: true
             simple_preauth:
