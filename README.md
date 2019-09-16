@@ -1,7 +1,8 @@
-# Base Full API Rest Symfony
+# Base Full API Rest Symfony 3.4
 Project base for make a profesional API with Symfony PHP framework. I'm currently working for improve day by day the repository for get a professional base.
 
 Included:
+- Symfony 3.4
 - Doctrine ORM
 - Authentification Security
 - Swagger API Doc
